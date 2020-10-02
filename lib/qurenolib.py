@@ -19,12 +19,12 @@ def is_valid_qureno_address(address, network='mainnet'):
     # 4 checksum bytes are appended so the total number of
     # base58 encoded bytes should be 25.  This means the number of characters
     # in the encoding should be about 34 ( 25 * log2( 256 ) / log2( 58 ) ).
-    qureno_version = 140 if network == 'testnet' else 76
+    # qureno_version = 140 if network == 'testnet' else 76
 
     # Check length (This is important because the base58 library has problems
     # with long addresses (which are invalid anyway).
-    if ((len(address) < 26) or (len(address) > 35)):
-        return False
+    # if ((len(address) < 26) or (len(address) > 35)):
+    #    return False
 
     address_version = None
 
