@@ -1,7 +1,5 @@
 # Qureno Sentinel
 
-[![Build Status](https://travis-ci.org/qureno/qureno-sentinel.svg?branch=master)](https://travis-ci.org/qureno/qureno-sentinel)
-
 > An automated governance helper for Qureno Masternodes.
 
 Sentinel is an autonomous agent for persisting, processing and automating Qureno governance objects and tasks. It is a Python application which runs alongside the Qureno instance on each Qureno Masternode.
