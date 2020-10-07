@@ -30,6 +30,15 @@ def prune_expired_proposals(qurenod):
         proposal.vote(qurenod, VoteSignals.delete, VoteOutcomes.yes)
 
 
+# ping qurenod
+def sentinel_ping(qurenod):
+    printdbg("in sentinel_ping")
+
+    qurenod.ping()
+
+    printdbg("leaving sentinel_ping")
+
+
 def attempt_superblock_creation(qurenod):
     import qurenolib
 
@@ -115,11 +124,6 @@ def main():
     qurenod = QurenoDaemon.from_qureno_conf(config.qureno_conf)
     options = process_args()
 
-    # print version and return if "--version" is an argument
-    if options.version:
-        print("Qureno Sentinel v%s" % config.sentinel_version)
-        return
-
     # check qurenod connectivity
     if not is_qurenod_port_open(qurenod):
         print("Cannot connect to qurenod. Please ensure qurenod is running and the JSONRPC port is open to Sentinel.")
@@ -165,6 +169,9 @@ def main():
     # load "gobject list" rpc command data, sync objects into internal database
     perform_qurenod_object_sync(qurenod)
 
+    if qurenod.has_sentinel_ping:
+        sentinel_ping(qurenod)
+
     # auto vote network objects as valid/invalid
     # check_object_validity(qurenod)
 
@@ -194,10 +201,6 @@ def process_args():
                         action='store_true',
                         help='Bypass scheduler and sync/vote immediately',
                         dest='bypass')
-    parser.add_argument('-v', '--version',
-                        action='store_true',
-                        help='Print the version (Qureno Sentinel vX.X.X) and exit')
-
     args = parser.parse_args()
 
     return args

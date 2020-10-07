@@ -28,7 +28,7 @@ db.connect()
 
 
 # TODO: lookup table?
-QRND_GOVOBJ_TYPES = {
+QURENOD_GOVOBJ_TYPES = {
     'proposal': 1,
     'superblock': 2,
 }
@@ -279,7 +279,7 @@ class Proposal(GovernanceClass, BaseModel):
     # src/governance-validators.cpp
     MAX_DATA_SIZE = 512
 
-    govobj_type = QRND_GOVOBJ_TYPES['proposal']
+    govobj_type = QURENOD_GOVOBJ_TYPES['proposal']
 
     class Meta:
         db_table = 'proposals'
@@ -330,7 +330,7 @@ class Proposal(GovernanceClass, BaseModel):
                 printdbg("\tProposal URL [%s] has whitespace, returning False" % self.name)
                 return False
 
-            # Qureno restricts proposals to 512 bytes max
+            # Qureno Core restricts proposals to 512 bytes max
             if len(self.serialise()) > (self.MAX_DATA_SIZE * 2):
                 printdbg("\tProposal [%s] is too big, returning False" % self.name)
                 return False
@@ -430,7 +430,7 @@ class Superblock(BaseModel, GovernanceClass):
     sb_hash = CharField()
     object_hash = CharField(max_length=64)
 
-    govobj_type = QRND_GOVOBJ_TYPES['superblock']
+    govobj_type = QURENOD_GOVOBJ_TYPES['superblock']
     only_masternode_can_submit = True
 
     class Meta:

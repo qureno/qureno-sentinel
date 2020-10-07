@@ -94,7 +94,13 @@ class QurenoDaemon():
         return not (self.get_current_masternode_vin() is None)
 
     def is_synced(self):
-        return self.rpc_command('mnsync', 'status')['IsSynced']
+        mnsync_status = self.rpc_command('mnsync', 'status')
+        synced = (mnsync_status['IsBlockchainSynced'] and
+                  mnsync_status['IsMasternodeListSynced'] and
+                  mnsync_status['IsWinnersListSynced'] and
+                  mnsync_status['IsSynced'] and
+                  not mnsync_status['IsFailed'])
+        return synced
 
     def current_block_hash(self):
         height = self.rpc_command('getblockcount')
@@ -210,3 +216,11 @@ class QurenoDaemon():
                 raise e
 
         return epoch
+
+    @property
+    def has_sentinel_ping(self):
+        getinfo = self.rpc_command('getinfo')
+        return (getinfo['protocolversion'] >= config.min_qurenod_proto_version_with_sentinel_ping)
+
+    def ping(self):
+        self.rpc_command('sentinelping', config.sentinel_version)

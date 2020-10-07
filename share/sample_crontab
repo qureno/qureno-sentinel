@@ -1,2 +1,2 @@
 # run Qureno-Sentinel every minute
-* * * * * cd /home/YOURUSERNAME/qureno-sentinel && ./venv/bin/python bin/sentinel.py >/dev/null 2>&1
+* * * * * cd /home/YOURUSERNAME/sentinel && ./venv/bin/python bin/sentinel.py >/dev/null 2>&1

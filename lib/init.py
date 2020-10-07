@@ -64,7 +64,7 @@ def has_qureno_conf():
 
     # ensure qureno_conf exists & readable
     #
-    # if not, print a message stating that Qureno must be installed and
+    # if not, print a message stating that Qureno Core must be installed and
     # configured, including JSONRPC access in qureno.conf
     try:
         f = io.open(config.qureno_conf)
@@ -95,7 +95,7 @@ def main():
         sys.exit(1)
 
     if not has_qureno_conf():
-        print("Qureno must be installed and configured, including JSONRPC access in qureno.conf")
+        print("QurenoCore must be installed and configured, including JSONRPC access in qureno.conf")
         sys.exit(1)
 
 
